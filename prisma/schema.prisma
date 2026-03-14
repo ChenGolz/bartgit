@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Category {
+  home
+  business
+  wellness
+  tech
+  lessons
+  media
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  city          String
+  bio           String?
+  avatarUrl     String?
+  ratingAverage Float          @default(0)
+  verified      Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  listings      Listing[]
+  sentMessages  Message[]      @relation("SentMessages")
+  reviewsGiven  Review[]       @relation("ReviewsGiven")
+  reviewsRecv   Review[]       @relation("ReviewsReceived")
+}
+
+model Listing {
+  id               String         @id @default(cuid())
+  userId           String
+  title            String
+  offerDescription String
+  wantsDescription String
+  category         Category
+  city             String
+  distanceLabel    String?
+  imageUrl         String?
+  matchScore       Int            @default(0)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  user             User           @relation(fields: [userId], references: [id])
+  tags             ListingTag[]
+  conversations    Conversation[]
+}
+
+model ListingTag {
+  id        String   @id @default(cuid())
+  listingId String
+  value     String
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+}
+
+model Conversation {
+  id         String    @id @default(cuid())
+  listingId   String
+  createdAt   DateTime  @default(now())
+  listing     Listing   @relation(fields: [listingId], references: [id])
+  messages    Message[]
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  senderId       String
+  body           String
+  createdAt      DateTime     @default(now())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         User         @relation("SentMessages", fields: [senderId], references: [id])
+}
+
+model Review {
+  id             String   @id @default(cuid())
+  reviewerId     String
+  reviewedUserId String
+  rating         Int
+  text           String?
+  createdAt      DateTime @default(now())
+  reviewer       User     @relation("ReviewsGiven", fields: [reviewerId], references: [id])
+  reviewedUser   User     @relation("ReviewsReceived", fields: [reviewedUserId], references: [id])
+}

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>בורסת הבארטר — GitHub Pages</title>
+  <meta name="description" content="זירת החלפת שירותים מקומית בעברית, מותאמת ל-GitHub Pages." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero">
+      <div class="hero-copy card">
+        <div class="eyebrow">🔁 זירת ההחלפות של ישראל</div>
+        <h1>אל תשלמו בכסף, תשלמו בכישרון שלכם.</h1>
+        <p>מצאו אנשים שצריכים את מה שיש לכם לתת, וקבלו בחזרה את מה שאתם באמת צריכים — מקומי, אנושי, מהיר ובגובה העיניים.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" aria-label="מעבר לטופס פרסום שירות">אני רוצה להציע שירות</button>
+          <button class="btn btn-secondary" aria-label="מעבר לחיפוש שירותים">אני מחפש שירות</button>
+        </div>
+        <div class="search-box" role="search" aria-label="חיפוש שירותים באתר">
+          <span class="icon-sm muted" aria-hidden="true">🔎</span>
+          <input id="searchInput" placeholder="מה חסר לך היום? למשל: שיעור גיטרה, עיצוב לוגו..." aria-label="חיפוש שירותים" />
+          <button id="searchButton" class="btn btn-primary search-btn" aria-label="ביצוע חיפוש">חיפוש</button>
+        </div>
+        <div class="trust-row">
+          <div class="trust-item">🛡️ אימות משתמשים</div>
+          <div class="trust-item">⭐ דירוגים וביקורות</div>
+          <div class="trust-item">📍 דגש על קרוב אליי</div>
+        </div>
+      </div>
+
+      <div class="hero-card card">
+        <div class="hero-card-top">
+          <div>
+            <p class="mini-label">התאמה חכמה</p>
+            <h3>המערכת מחברת בין מה שאת מציעה למה שאת מחפשת</h3>
+          </div>
+          <span class="score">92%</span>
+        </div>
+        <div class="match-box">
+          <div>
+            <strong>את נותנת</strong>
+            <p>ניהול עמוד אינסטגרם</p>
+          </div>
+          <div class="match-swap">🔁</div>
+          <div>
+            <strong>את מקבלת</strong>
+            <p>צילומי תדמית לעסק</p>
+          </div>
+        </div>
+        <ul class="match-list" id="matchList"></ul>
+      </div>
+    </section>
+
+    <section class="section card">
+      <div class="hero-copy">
+        <div class="section-title">
+          <h2>איך זה עובד?</h2>
+          <p>3 צעדים פשוטים כדי להתחיל להחליף שירותים בצורה הוגנת, בטוחה ומקומית — כולל טיפ להצלחה: התחילו משעה תמורת שעה כדי לייצר תחושת הוגנות ברורה.</p>
+        </div>
+        <div class="stack-grid section">
+          <article class="step-card card">
+            <div class="mini-label">שלב 1</div>
+            <h3>מפרסמים</h3>
+            <p>מעלים מודעה עם מה שאתם נותנים ומה הייתם רוצים לקבל בתמורה.</p>
+          </article>
+          <article class="step-card card">
+            <div class="mini-label">שלב 2</div>
+            <h3>מתכתבים</h3>
+            <p>מוצאים התאמה, שולחים הצעת בארטר ברורה וסוגרים את הפרטים בצ׳אט.</p>
+          </article>
+          <article class="step-card card">
+            <div class="mini-label">שלב 3</div>
+            <h3>מחליפים</h3>
+            <p>נותנים שירות, מקבלים שירות, ומשאירים ביקורת שבונה אמון בקהילה.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="feed-header">
+        <div class="section-title">
+          <h2>טרנדים עכשיו</h2>
+          <p>קטגוריות חמות בישראל — עם דגש על החלפות קרובות, אמינות ושימושיות.</p>
+        </div>
+        <div class="feed-tools"><span class="mini-label">🧰 סינון מהיר</span></div>
+      </div>
+      <div class="categories-row" id="categoryTabs" role="tablist" aria-label="קטגוריות שירותים"></div>
+    </section>
+
+    <section class="section">
+      <div class="feed-header">
+        <div class="section-title">
+          <h2>פיד מודעות אחרונות</h2>
+          <p>כרטיסיות עם התאמה חכמה, מרחק מהמשתמש וקריאה ברורה לפעולה.</p>
+        </div>
+        <span class="mini-label" id="resultsCount"></span>
+      </div>
+      <div id="listingsRoot"></div>
+    </section>
+
+    <section class="section two-col">
+      <div class="card stack-col" style="padding:24px">
+        <div class="section-title">
+          <h2>הצעת בארטר מוכנה לשליחה</h2>
+          <p>תבנית מכבדת, ברורה וקונקרטית שאפשר לשלב בצ׳אט הפנימי.</p>
+        </div>
+        <div class="offer-template">
+          <p><strong>נושא:</strong> היי [שם המשתמש], אשמח שנעשה בארטר!</p>
+          <p>ראיתי שאת/ה מציע/ה <strong>[שם השירות]</strong> וזה בדיוק מה שחיפשתי. בתמורה, אני יכול/ה להציע <strong>[שם השירות שלי]</strong>.</p>
+          <p>אני מציע/ה שנעשה החלפה של <strong>[כמות זמן/תוצר]</strong> שלי מול <strong>[כמות זמן/תוצר]</strong> שלך.</p>
+          <p>אפשר לראות עבודות קודמות שלי בפרופיל כאן באתר. מה דעתך?</p>
+        </div>
+      </div>
+
+      <div class="card stack-col" style="padding:24px">
+        <div class="section-title">
+          <h2>בטיחות, הוגנות ואמון</h2>
+          <p>הדברים שהכי חשובים לקהל הישראלי לפני שסוגרים עסקה.</p>
+        </div>
+        <div class="safety-list">
+          <div>🛡️ אימות משתמשים כדי לצמצם פרופילים פיקטיביים.</div>
+          <div>🚩 כפתור דיווח בולט להתנהגות לא הולמת.</div>
+          <div>💡 המלצה להחליף על בסיס שעה תמורת שעה או שווי שוק דומה.</div>
+          <div>📍 סינון חזק לפי עיר / אזור כדי לשמור על מקומיות.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section footer-cta card">
+      <div class="eyebrow" style="color:#d0f3df">✨ מוכנה לשלב הבא</div>
+      <h2>הגרסה הבאה: משתמשים אמיתיים, צ׳אט, אימות ו-DB</h2>
+      <p>בגרסת GitHub הזו כבר הכנסתי חיפוש, מצב אין-תוצאות, מבנה קוד מסודר ותחילת תשתית ל-API ו-Prisma כדי שתוכלי להמשיך לפיתוח מלא.</p>
+      <div class="footer-actions">
+        <button class="btn btn-primary" aria-label="התחלת בניית צד שרת">להתחיל לבנות Backend</button>
+        <button class="btn btn-secondary" aria-label="הוספת אימות משתמשים וצ׳אט">להוסיף Auth וצ׳אט</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="modalRoot"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
